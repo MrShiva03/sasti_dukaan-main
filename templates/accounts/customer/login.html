@@ -1,0 +1,56 @@
+{% extends 'layout/base_fullscreen.html' %}
+{% load static %}
+{% load socialaccount %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-4 col-md-8 mx-auto">
+            <form method="post" class="card shadow-lg">
+                {% csrf_token %}
+                <div class="card-header text-center bg-dark text-light">
+                    <h3>CUSTOMER LOGIN</h3>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Username</label>
+                        <input type="text" class="form-control form-control-lg" name="username" id="username"
+                            aria-describedby="userHelp" placeholder="Username" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control form-control-lg" name="password" id="password"
+                            aria-describedby="passHelp" placeholder="password" />
+                    </div>
+                    <div class="d-grid text-center">
+                        <button class="btn btn-dark">Login</button>
+                        <a class="btn btn-dark mt-2" href="{% provider_login_url 'github' %}"> Login to Github</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block css %}
+<style>
+    body {
+        background-color: #314657;
+    }
+
+    main {
+        display: grid;
+        place-items: center;
+        height: 100vh;
+    }
+</style>
+{% endblock %}
+
+{% block js %}
+<script></script>
+{% endblock %}

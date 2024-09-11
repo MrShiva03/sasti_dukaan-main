@@ -1,0 +1,97 @@
+{% extends 'layout/base_fullscreen.html' %}
+{% load static %}
+
+
+{% block head %}{% endblock %}
+
+{% block content %}
+<main>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-lg-4 mx-auto">
+                <form method="post" class="card shadow-lg">
+                    {% csrf_token %}
+                    <div class="card-header text-center bg-dark text-light py-3">
+                        <h3>Create Seller Account</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Username</label>
+                            <input type="text" class="form-control form-control-lg" name="username" id="username"
+                                aria-describedby="userHelp" placeholder="Username" />
+                            <small id="userHelp" class="form-text text-muted"></small>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control form-control-lg" name="email" id="email"
+                                aria-describedby="emailHelpId" placeholder="abc@mail.com" />
+                            <small id="emailHelpId" class="form-text text-muted"></small>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" class="form-control form-control-lg" name="password" id="password"
+                                aria-describedby="passHelp" placeholder="password" />
+                            <small id="passHelp" class="form-text text-muted"></small>
+                        </div>
+                        <div class="mb-3">
+                            <label for="shop name" class="form-label">Shop Name</label>
+                            <input type="text" class="form-control form-control-lg" name="shop name" id="shop name"
+                                aria-describedby="shopHelpId" placeholder="your shop" />
+                            <small id="shopHelpId" class="form-text text-muted"></small>
+                        </div>
+                        <div class="mb-3">
+                            <label for="number" class="form-label">Phone Number</label>
+                            <input type="phone number" class="form-control form-control-lg" name="number" id="number"
+                                aria-describedby="numberHelpId" placeholder="ex-5486871" />
+                            <small id="numberHelpId" class="form-text text-muted"></small>
+                        </div>
+                        <div class="mb-3">
+                            <label for="address" class="form-label">Address</label>
+                            <input type="address" class="form-control form-control-lg" name="address" id="address"
+                                aria-describedby="addressHelpId" placeholder="address" />
+                            <small id="addressHelpId" class="form-text text-muted"></small>
+                        </div>
+                        <div class="mb-3">
+                            <label for="city" class="form-label">City</label>
+                            <input type="address" class="form-control form-control-lg" name="city" id="city"
+                                aria-describedby="cityHelpId" placeholder="your city" />
+                            <small id="cityHelpId" class="form-text text-muted"></small>
+                        </div>
+                        <div class="mb-3">
+                            <label for="pin" class="form-label">Pin Code</label>
+                            <input type="pin" class="form-control form-control-lg" name="pin" id="pin"
+                                aria-describedby="pinHelpId" placeholder="enter pin" />
+                            <small id="pinHelpId" class="form-text text-muted"></small>
+                        </div>
+                        <div class="d-grid ">
+                            <button class="btn btn-dark btn-lg">
+                                Create account
+                            </button>
+                            <div class="p-3 d-flex fw-bold fs-4 mx-auto">
+                                Already have account? <a href="{% url 'login' %}" class="nav-link text-primary">Login</a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}
+
+{% block css %}
+<style>
+    body {
+        background-color: #b3b2ae;
+    }
+
+    main {
+        display: grid;
+        place-items: center;
+        height: 100vh;
+    }
+</style>
+{% endblock %}
+
+{% block js %} <script></script> {% endblock %}
