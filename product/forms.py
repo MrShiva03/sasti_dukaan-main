@@ -14,5 +14,5 @@ class CategoryForm(forms.ModelForm):
 class ReviewForm(forms.ModelForm):
     class Meta:
         model = Review
-        fields = ['contemt','rating']
+        fields = ['content','rating']
         

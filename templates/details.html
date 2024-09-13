@@ -1,4 +1,5 @@
 {% extends 'layout/base.html' %}
+{% load humanize %}
 {% block content %}
 <div class="container-fluid px-0">
     <div class="row g-0">
@@ -17,7 +18,7 @@
                             {{product.category}}
                         </a>
                         <hr class="my-3">
-                        <p class="fs-2">₹ {{product.price}}</p>
+                        <p class="fs-2">₹ {{product.price|intcomma}}</p>
                         <p>{{product.description}}</p>
                         <hr class="my-3">
                         <p class="lead">
@@ -57,5 +58,68 @@
         </div>
         {% endfor %}
     </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h5 class="d_flex align_item_center gap_3">
+                Product Review
+                
+                {% if user.is_authenticated %}
+                <button type="button" class="btn btn-info btn-sm"
+                data-bs-toggle="modal" data-bs-target="#addReview">
+                    Add your review
+                </button>  
+                {% endif %}
+                
+            </h5>
+        </div>
+        
+        {% for item in reviews %}
+        <div class="col-md-12 mb-3">
+            <div class="card">
+                <div class="card-body">
+                    <h6 class="d-flex align-item-center gap-3">
+                        <i class="fas fa-user-circle fa-2x"></i>
+                        {{item.customer.username|title}}
+                    </h6>
+                    <p>{{item.content}}</p>
+                </p>
+                <p class="text-muted">{{item.rating}}/5</p>
+                <date class="text-muted">
+                    {{item.created_at}}
+                </date>
+                    <p class="text-muted">{{item.created_at|naturaltime}}/10</p>
+                </div>
+            </div>
+        </div>
+            
+        {% empty %}
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    No Reviews Yet
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<div class="modal fade" id="addReview" tabindex="-1" aria-labelledby="addReview" aria-hidden="true">
+    <form class="modal-dialog" action="">
+    <div class="modal-content">
+        <div class="modal-header">
+        <h1 class="modal-title fs-5" id="addReview">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+        
+        </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save Review</button>
+        </div>
+    </div>
+</form>
 </div>
 {% endblock content %}
