@@ -1,6 +1,7 @@
 {% extends 'layout/base.html' %}
 {% load humanize %}
 {% block content %}
+<!-- product display -->
 <div class="container-fluid px-0">
     <div class="row g-0">
         <div class="col-md-6">
@@ -24,15 +25,23 @@
                         <p class="lead">
                             <strong>Seller:</strong> {{product.seller}}
                         </p>
-                        <a href="#" class="btn btn-outline-primary rounded-0">Add to Cart</a>
-                        <a href="#" class="btn btn-outline-primary rounded-0">Buy Now</a>
-                        
+                        <div class="d-flex gap-3">
+                            <a href="#" class="btn btn-primary rounded-0 btn-large">
+                                <i class="fas fa-shopping-cart"></i> 
+                            </a>
+                            <form action="{% url 'init_payment' %}" method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="product_id" value="{{product.id}}">
+                                <button class="btn btn-outline-danger btn-lg rounded-0">Buy Now</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<!-- similar products -->
 <div class="container-fluid py-3">
     <div class="row">
         <div class="col">
@@ -59,41 +68,40 @@
         {% endfor %}
     </div>
 </div>
-<div class="container">
+<div class="container-fluid py-3">
     <div class="row">
         <div class="col-md-12">
-            <h5 class="d_flex align_item_center gap_3">
-                Product Review
-                
+            <h5 class="d-flex align-items-center gap-3">
+                Product Reviews
+
                 {% if user.is_authenticated %}
-                <button type="button" class="btn btn-info btn-sm"
-                data-bs-toggle="modal" data-bs-target="#addReview">
+                <button type="button" class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#addReview">
                     Add your review
-                </button>  
+                </button>
                 {% endif %}
-                
             </h5>
         </div>
-        
+
         {% for item in reviews %}
         <div class="col-md-12 mb-3">
             <div class="card">
                 <div class="card-body">
-                    <h6 class="d-flex align-item-center gap-3">
+                    <h6 class="d-flex align-items-center gap-3">
                         <i class="fas fa-user-circle fa-2x"></i>
                         {{item.customer.username|title}}
                     </h6>
-                    <p>{{item.content}}</p>
-                </p>
-                <p class="text-muted">{{item.rating}}/5</p>
-                <date class="text-muted">
-                    {{item.created_at}}
-                </date>
-                    <p class="text-muted">{{item.created_at|naturaltime}}/10</p>
+                    <p class="text-muted ratingbox" data-value="{{item.rating}}">
+                        {{item.rating}}
+                    </p>
+                    <p class="fs-6">
+                        {{item.content}}
+                    </p>
+                    <date class="text-muted">
+                        {{item.created_at|naturaltime}}
+                    </date>
                 </div>
             </div>
         </div>
-            
         {% empty %}
         <div class="col">
             <div class="card">
@@ -105,21 +113,34 @@
         {% endfor %}
     </div>
 </div>
-<div class="modal fade" id="addReview" tabindex="-1" aria-labelledby="addReview" aria-hidden="true">
+<!-- Add Review Modal -->
+<div class="modal fade" id="addReview" tabindex="-1" aria-labelledby="addReviewlLabel" aria-hidden="true">
     <form class="modal-dialog" action="">
-    <div class="modal-content">
-        <div class="modal-header">
-        <h1 class="modal-title fs-5" id="addReview">Modal title</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        {% csrf_token %}
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="addReviewLabel">Add your review</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                {{review_form}}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">Save Review</button>
+            </div>
         </div>
-        <div class="modal-body">
-        
-        </div>
-        <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save Review</button>
-        </div>
-    </div>
-</form>
+    </form>
 </div>
+<!-- End of Add Review modal -->
 {% endblock content %}
+
+
+{% block js %}
+<script>
+    var ratingbox = document.querySelectorAll('.ratingbox');
+    ratingbox.forEach((item) => {
+        value = item.getAttribute('data-value');
+        item.innerHTML = '⭐'.repeat(value);
+    });
+</script>
+{% endblock js %}
