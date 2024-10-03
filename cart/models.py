@@ -21,10 +21,3 @@ class Order(models.Model):
     is_delivered = models.BooleanField(default=False)
     address = models.TextField()
     ordered_at = models.DateTimeField(auto_now_add=True)
-
-    
-    
-    
-    
-    
-    

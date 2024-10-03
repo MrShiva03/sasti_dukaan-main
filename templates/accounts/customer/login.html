@@ -1,37 +1,32 @@
 {% extends 'layout/base_fullscreen.html' %}
 {% load static %}
-{% load socialaccount %}
+{% load socialaccount %} 
 
-{% block head %}
-
-{% endblock %}
+{% block head %}{% endblock %}
 
 {% block content %}
 <div class="container">
     <div class="row">
-        <div class="col-lg-4 col-md-8 mx-auto">
-            <form method="post" class="card shadow-lg">
-                {% csrf_token %}
-                <div class="card-header text-center bg-dark text-light">
-                    <h3>CUSTOMER LOGIN</h3>
+        <div class="col-md-4 mx-auto">
+            <div class="card bg-transparentOpen. ">
+                <div class="card-header text-center">
+                    <h5>
+                        Login as Customer
+                    </h5>
                 </div>
-                <div class="card-body">
-                    <div class="mb-3">
-                        <label for="username" class="form-label">Username</label>
-                        <input type="text" class="form-control form-control-lg" name="username" id="username"
-                            aria-describedby="userHelp" placeholder="Username" />
-                    </div>  
-                    <div class="mb-3">
-                        <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control form-control-lg" name="password" id="password"
-                            aria-describedby="passHelp" placeholder="password" />
-                    </div>
-                    <div class="d-grid text-center">
-                        <button class="btn btn-dark">Login</button>
-                        <a class="btn btn-dark mt-2" href="{% provider_login_url 'github' %}"> Login to Github</a>
-                    </div>
+                <div class="card-body text-center">
+                    <a href="{% provider_login_url "github" %}" 
+                        class="btn btn-dark btn-block">
+                        <i class="fab fa-github"></i> 
+                        Login with Github
+                    </a>
                 </div>
-            </form>
+                <div>
+                    <a href="{% url 'account_reset_password' %}">
+                        forgot password 
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -39,14 +34,13 @@
 
 {% block css %}
 <style>
-    body {
-        background-color: #314657;
-    }
-
-    main {
-        display: grid;
-        place-items: center;
+    main{
+        background-color: #f8f9fa;
         height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;    
+        flex-direction: column;
     }
 </style>
 {% endblock %}
@@ -54,3 +48,4 @@
 {% block js %}
 <script></script>
 {% endblock %}
+    
